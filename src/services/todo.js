@@ -1,10 +1,11 @@
 import update from 'immutability-helper';
+import type { TodoItem, TodoList } from './todo-js.types';
 
 /**
  * Get the list of todo items.
- * @return {Array}
+ * @return {TodoList}
  */
-export function getAll() {
+export function getAll(): TodoList {
     return [
         {
             id: 1,
@@ -21,20 +22,20 @@ export function getAll() {
             text: 'Build a React App',
             completed: false
         }
-    ]
+    ];
 }
 
-export function getItemById(itemId) {
+export function getItemById(itemId: number): TodoItem | undefined {
     return getAll().find(item => item.id === itemId);
 }
 
-export function updateStatus(items, itemId, completed) {
+export function updateStatus(items: TodoList, itemId: number, completed: boolean): TodoList {
     let index = items.findIndex(item => item.id === itemId);
 
     // Returns a new list of data with updated item.
     return update(items, {
         [index]: {
-            completed: {$set: completed}
+            completed: { $set: completed }
         }
     });
 }
@@ -44,21 +45,21 @@ export function updateStatus(items, itemId, completed) {
  * Can remove this logic when the todo is created using backend/database logic.
  * @type {Number}
  */
-let todoCounter = 1;
+let todoCounter: number = 1;
 
-function getNextId() {
+function getNextId(): number {
     return getAll().length + todoCounter++;
 }
 
 /**
  * Adds a new item on the list and returns the new updated list (immutable).
  *
- * @param {Array} list
- * @param {Object} data
- * @return {Array}
+ * @param {TodoList} list
+ * @param {Partial<TodoItem>} data
+ * @return {TodoList}
  */
-export function addToList(list, data) {
-    let item = Object.assign({
+export function addToList(list: TodoList, data: Partial<TodoItem>): TodoList {
+    let item: TodoItem = Object.assign({
         id: getNextId()
     }, data);
 
