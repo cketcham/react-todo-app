@@ -14,8 +14,8 @@
     "recompose": "^0.23.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "tsc && node dist/index.js",
+    "build": "tsc",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
