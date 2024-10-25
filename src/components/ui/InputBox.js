@@ -1,7 +1,8 @@
 import React from 'react';
 import enhance from '../hoc/wrapInputBox';
+import type { InputBoxProps } from './InputBox-js.types';
 
-function InputBox(props) {
+function InputBox(props: InputBoxProps) {
     const { value, handleChange, handleKeyUp } = props;
 
     return (
