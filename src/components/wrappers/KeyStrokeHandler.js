@@ -1,18 +1,19 @@
-import React, {Component} from 'react';
-import {getNextModeByKey} from '../../services/mode';
-import {wrapChildrenWith} from '../../util/common';
+import React, { Component, ReactNode } from 'react';
+import type { KeyStrokeHandlerProps } from './KeyStrokeHandler-js.types';
+import { getNextModeByKey } from '../../services/mode';
+import { wrapChildrenWith } from '../../util/common';
 
-class KeyStrokeHandler extends Component {
-    componentWillMount() {
+class KeyStrokeHandler extends Component<KeyStrokeHandlerProps> {
+    componentDidMount() {
         window.addEventListener('keydown', this.handleKeyUp.bind(this));
     }
 
     componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyUp);
+        window.removeEventListener('keydown', this.handleKeyUp.bind(this));
     }
 
-    handleKeyUp(e) {
-        const {mode} = this.props.data;
+    handleKeyUp(e: KeyboardEvent): void {
+        const { mode } = this.props.data;
         const nextMode = getNextModeByKey(mode, e.keyCode);
 
         if (nextMode !== mode) {
@@ -21,7 +22,7 @@ class KeyStrokeHandler extends Component {
         }
     }
 
-    render() {
+    render(): ReactNode {
         return <div>{wrapChildrenWith(this.props.children, this.props)}</div>;
     }
 }
