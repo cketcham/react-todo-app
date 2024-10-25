@@ -8,7 +8,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 // Add our style
 import './assets/style/index.css';
 
+// Import custom types
+import type { AppProps } from './index-js.types';
+
 ReactDOM.render(
-    <App/>,
+    <App />,
     document.getElementById('root')
 );
