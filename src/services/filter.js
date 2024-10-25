@@ -1,10 +1,11 @@
-import {stringInclues} from '../util/common';
+import { stringIncludes } from '../util/common';
+import type { FilterType, TodoItem } from './filter-js.types';
 
-export const FILTER_ALL = 'all';
-export const FILTER_ACTIVE = 'active';
-export const FILTER_COMPLETED = 'completed';
+export const FILTER_ALL: FilterType = 'all';
+export const FILTER_ACTIVE: FilterType = 'active';
+export const FILTER_COMPLETED: FilterType = 'completed';
 
-export function applyFilter(list, filter) {
+export function applyFilter(list: TodoItem[], filter: FilterType): TodoItem[] {
     switch (filter) {
         case FILTER_COMPLETED:
             return list.filter(item => item.completed === true);
@@ -17,14 +18,13 @@ export function applyFilter(list, filter) {
     }
 }
 
-export function search(list, query) {
+export function search(list: TodoItem[], query: string): TodoItem[] {
     let q = query.trim().toLowerCase();
 
-    return list.filter(({text}) => stringInclues(text.toLowerCase(), q));
+    return list.filter(({ text }) => stringIncludes(text.toLowerCase(), q));
 }
 
-
-export function getOptions() {
+export function getOptions(): Record<FilterType, string> {
     return {
         [FILTER_ALL]: 'All',
         [FILTER_ACTIVE]: 'Active',
